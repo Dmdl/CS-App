@@ -35,9 +35,5 @@ public class Rectangle implements Shape {
         Shape line4 = new Line(new Point(this.bottomRight.getX(), this.topLeft.getY()),
                 new Point(this.bottomRight.getX(), this.bottomRight.getY()));
         line4.draw(canvas);
-//        CanvasUtility.drawLine(x1, y1, x2, y1, canvas, symbol);
-//        CanvasUtility.drawLine(x1, y2, x2, y2, canvas, symbol);
-//        CanvasUtility.drawLine(x1, y1, x1, y2, canvas, symbol);
-//        CanvasUtility.drawLine(x2, y1, x2, y2, canvas, symbol);
     }
 }
