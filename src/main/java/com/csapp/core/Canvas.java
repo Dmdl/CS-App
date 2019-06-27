@@ -1,7 +1,5 @@
 package com.csapp.core;
 
-import com.csapp.core.Point;
-import com.csapp.core.Shape;
 import com.csapp.core.shape.Line;
 import com.csapp.exception.CanvasException;
 import com.csapp.util.Constant;
