@@ -27,7 +27,6 @@ public final class Canvas {
         line3.draw(this);
         Shape line4 = new Line(new Point(this.width - 1, 1),new Point(this.width - 1, this.height - 2),'|');
         line4.draw(this);
-        System.out.println(this.draw());
     }
 
     /**

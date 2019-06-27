@@ -27,6 +27,7 @@ public class App {
             try {
                 if (command.charAt(0) == 'C') {
                     canvas = new Canvas(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]));
+                    System.out.println(canvas.draw());
                 }
                 if (null == canvas) {
                     System.out.println("Create the canvas first");
