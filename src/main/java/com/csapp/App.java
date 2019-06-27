@@ -1,8 +1,11 @@
 package com.csapp;
 
+import com.csapp.core.Point;
+import com.csapp.core.Shape;
+import com.csapp.core.shape.Line;
+import com.csapp.core.shape.Rectangle;
 import com.csapp.exception.CanvasException;
-import com.csapp.model.Shape1;
-import com.csapp.paint.Canvas;
+import com.csapp.core.Canvas;
 
 import java.util.Scanner;
 
@@ -30,13 +33,13 @@ public class App {
                     continue;
                 }
                 if (command.charAt(0) == 'L') {
-                    Shape1 line = new Shape1.Builder(Integer.parseInt(commands[1]), Integer.parseInt(commands[2])
-                            , Integer.parseInt(commands[3]), Integer.parseInt(commands[4]), Shape1.SHAPE.LINE).symbol('k').build();
+                    Shape line = new Line(new Point(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]))
+                            , new Point(Integer.parseInt(commands[3]), Integer.parseInt(commands[4])));
                     line.draw(canvas);
                     System.out.println(canvas.draw());
                 } else if (command.charAt(0) == 'R') {
-                    Shape1 rectangle = new Shape1.Builder(Integer.parseInt(commands[1]), Integer.parseInt(commands[2])
-                            , Integer.parseInt(commands[3]), Integer.parseInt(commands[4]), Shape1.SHAPE.RECTANGLE).symbol('x').build();
+                    Shape rectangle = new Rectangle(new Point(Integer.parseInt(commands[1]), Integer.parseInt(commands[2])),
+                            new Point(Integer.parseInt(commands[3]), Integer.parseInt(commands[4])));
                     rectangle.draw(canvas);
                     System.out.println(canvas.draw());
                 } else if (command.charAt(0) == 'B') {

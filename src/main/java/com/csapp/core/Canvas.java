@@ -1,7 +1,10 @@
-package com.csapp.paint;
+package com.csapp.core;
 
+import com.csapp.core.Point;
+import com.csapp.core.Shape;
+import com.csapp.core.shape.Line;
 import com.csapp.exception.CanvasException;
-import com.csapp.util.CanvasUtility;
+import com.csapp.util.Constant;
 
 /**
  * Create the Canvas to draw shapes on
@@ -10,7 +13,6 @@ public final class Canvas {
     private final char[][] pixels;
     private final int width;
     private final int height;
-    private static final char EMPTY_PIXEL = '\u0000';
 
     public Canvas(int width, int height) throws CanvasException {
         if (width < 1 || height < 1)
@@ -18,10 +20,15 @@ public final class Canvas {
         this.width = width + 2;
         this.height = height + 2;
         this.pixels = new char[this.height][this.width];
-        CanvasUtility.drawLine(0, 0, this.width - 1, 0, this, '-');
-        CanvasUtility.drawLine(0, this.height - 1, this.width - 1, this.height - 1, this, '-');
-        CanvasUtility.drawLine(0, 1, 0, this.height - 2, this, '|');
-        CanvasUtility.drawLine(this.width - 1, 1, this.width - 1, this.height - 2, this, '|');
+
+        Shape line1 = new Line(new Point(0, 0),new Point(this.width - 1, 0),'-');
+        line1.draw(this);
+        Shape line2 =new Line(new Point(0, this.height - 1),new Point(this.width - 1, this.height - 1),'-');
+        line2.draw(this);
+        Shape line3 = new Line(new Point(0, 1),new Point(0, this.height - 2),'|');
+        line3.draw(this);
+        Shape line4 = new Line(new Point(this.width - 1, 1),new Point(this.width - 1, this.height - 2),'|');
+        line4.draw(this);
         System.out.println(this.draw());
     }
 
@@ -34,7 +41,7 @@ public final class Canvas {
         StringBuilder builder = new StringBuilder();
         for (char[] row : this.pixels) {
             for (char pixel : row) {
-                builder.append(pixel == EMPTY_PIXEL ? ' ' : pixel);
+                builder.append(pixel == Constant.EMPTY_PIXEL ? ' ' : pixel);
             }
             builder.append("\n");
         }
@@ -49,7 +56,7 @@ public final class Canvas {
      * @param symbol to fill the area
      */
     public void fillBucket(int x, int y, char symbol) {
-        if (this.pixels[y][x] != EMPTY_PIXEL)
+        if (this.pixels[y][x] != Constant.EMPTY_PIXEL)
             return;
         this.pixels[y][x] = symbol;
         fillBucket(x + 1, y, symbol);

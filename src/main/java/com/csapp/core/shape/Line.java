@@ -2,7 +2,7 @@ package com.csapp.core.shape;
 
 import com.csapp.core.Point;
 import com.csapp.core.Shape;
-import com.csapp.paint.Canvas;
+import com.csapp.core.Canvas;
 import com.csapp.util.Constant;
 
 public class Line implements Shape {

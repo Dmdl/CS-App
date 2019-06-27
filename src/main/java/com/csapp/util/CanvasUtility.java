@@ -1,7 +1,7 @@
 package com.csapp.util;
 
 import com.csapp.exception.CanvasException;
-import com.csapp.paint.Canvas;
+import com.csapp.core.Canvas;
 
 public class CanvasUtility {
 
