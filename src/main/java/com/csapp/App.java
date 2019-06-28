@@ -2,9 +2,9 @@ package com.csapp;
 
 import com.csapp.core.Point;
 import com.csapp.core.Shape;
-import com.csapp.core.shape.Line;
-import com.csapp.core.shape.Rectangle;
-import com.csapp.exception.CanvasException;
+import com.csapp.core.shapes.Line;
+import com.csapp.core.shapes.Rectangle;
+import com.csapp.exceptions.CanvasException;
 import com.csapp.core.Canvas;
 
 import java.util.Scanner;

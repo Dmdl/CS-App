@@ -1,4 +1,4 @@
-package com.csapp.core.shape;
+package com.csapp.core.shapes;
 
 import com.csapp.core.Point;
 import com.csapp.core.Shape;

@@ -1,4 +1,4 @@
-package com.csapp.exception;
+package com.csapp.exceptions;
 
 public class CanvasException extends Exception {
     public CanvasException() {
