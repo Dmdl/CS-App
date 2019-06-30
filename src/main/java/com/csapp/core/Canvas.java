@@ -5,7 +5,7 @@ import com.csapp.exceptions.CanvasException;
 import com.csapp.util.Constant;
 
 /**
- * Create the Canvas to draw shapes on
+ * Create the Canvas to addToCanvas shapes on
  */
 public final class Canvas {
     private final char[][] pixels;
@@ -19,14 +19,14 @@ public final class Canvas {
         this.height = height + 2;
         this.pixels = new char[this.height][this.width];
 
-        Shape line1 = new Line(new Point(0, 0),new Point(this.width - 1, 0),'-');
-        line1.draw(this);
-        Shape line2 =new Line(new Point(0, this.height - 1),new Point(this.width - 1, this.height - 1),'-');
-        line2.draw(this);
-        Shape line3 = new Line(new Point(0, 1),new Point(0, this.height - 2),'|');
-        line3.draw(this);
-        Shape line4 = new Line(new Point(this.width - 1, 1),new Point(this.width - 1, this.height - 2),'|');
-        line4.draw(this);
+        Shape line1 = new Line(new Point(0, 0), new Point(this.width - 1, 0), '-');
+        line1.addToCanvas(this);
+        Shape line2 = new Line(new Point(0, this.height - 1), new Point(this.width - 1, this.height - 1), '-');
+        line2.addToCanvas(this);
+        Shape line3 = new Line(new Point(0, 1), new Point(0, this.height - 2), '|');
+        line3.addToCanvas(this);
+        Shape line4 = new Line(new Point(this.width - 1, 1), new Point(this.width - 1, this.height - 2), '|');
+        line4.addToCanvas(this);
     }
 
     /**
@@ -34,15 +34,17 @@ public final class Canvas {
      *
      * @return canvas
      */
-    public String draw() {
-        StringBuilder builder = new StringBuilder();
+    public void draw() {
+//        StringBuilder builder = new StringBuilder();
         for (char[] row : this.pixels) {
             for (char pixel : row) {
-                builder.append(pixel == Constant.EMPTY_PIXEL ? ' ' : pixel);
+//                builder.append(pixel == Constant.EMPTY_PIXEL ? ' ' : pixel);
+                System.out.print(pixel == Constant.EMPTY_PIXEL ? ' ' : pixel);
             }
-            builder.append("\n");
+//            builder.append("\n");
+            System.out.println();
         }
-        return builder.toString();
+//        return builder.toString();
     }
 
     /**

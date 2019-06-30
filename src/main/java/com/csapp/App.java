@@ -1,12 +1,11 @@
 package com.csapp;
 
-import com.csapp.core.Point;
-import com.csapp.core.Shape;
-import com.csapp.core.shapes.Line;
-import com.csapp.core.shapes.Rectangle;
+import com.csapp.commands.Command;
+import com.csapp.commands.CommandFactory;
 import com.csapp.exceptions.CanvasException;
 import com.csapp.core.Canvas;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -20,32 +19,21 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         String command = "";
         displayHelp();
+        CommandFactory commandFactory = new CommandFactory();
         while (!command.equals("Q")) {
             System.out.println("Command :");
-            command = scanner.nextLine();
+            command = scanner.nextLine().trim();
             String[] commands = command.split(" ");
+            String[] parameters = Arrays.copyOfRange(commands, 1, commands.length);
+            char comChar = command.charAt(0);
             try {
-                if (command.charAt(0) == 'C') {
-                    canvas = new Canvas(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]));
-                    System.out.println(canvas.draw());
-                }
-                if (null == canvas) {
-                    System.out.println("Create the canvas first");
-                    continue;
-                }
-                if (command.charAt(0) == 'L') {
-                    Shape line = new Line(new Point(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]))
-                            , new Point(Integer.parseInt(commands[3]), Integer.parseInt(commands[4])));
-                    line.draw(canvas);
-                    System.out.println(canvas.draw());
-                } else if (command.charAt(0) == 'R') {
-                    Shape rectangle = new Rectangle(new Point(Integer.parseInt(commands[1]), Integer.parseInt(commands[2])),
-                            new Point(Integer.parseInt(commands[3]), Integer.parseInt(commands[4])));
-                    rectangle.draw(canvas);
-                    System.out.println(canvas.draw());
-                } else if (command.charAt(0) == 'B') {
-                    canvas.fillBucket(Integer.parseInt(commands[1]), Integer.parseInt(commands[2]), commands[3].charAt(0));
-                    System.out.println(canvas.draw());
+                Command toExecute = commandFactory.getCommand(comChar);
+                if (Character.toLowerCase(comChar) == 'c') {
+                    toExecute.execute(parameters);
+                    canvas = toExecute.getCanvas();
+                } else {
+                    toExecute.setCanvas(canvas);
+                    toExecute.execute(parameters);
                 }
             } catch (CanvasException ex) {
                 System.out.println(ex.getMessage());

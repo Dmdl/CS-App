@@ -22,18 +22,18 @@ public class Rectangle implements Shape {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void addToCanvas(Canvas canvas) {
         Shape line1 = new Line(new Point(this.topLeft.getX(), this.topLeft.getY()),
                 new Point(this.bottomRight.getX(), this.topLeft.getY()));
-        line1.draw(canvas);
+        line1.addToCanvas(canvas);
         Shape line2 = new Line(new Point(this.topLeft.getX(), this.bottomRight.getY()),
                 new Point(this.bottomRight.getX(), this.bottomRight.getY()));
-        line2.draw(canvas);
+        line2.addToCanvas(canvas);
         Shape line3 = new Line(new Point(this.topLeft.getX(), this.topLeft.getY()),
                 new Point(this.topLeft.getX(), this.bottomRight.getY()));
-        line3.draw(canvas);
+        line3.addToCanvas(canvas);
         Shape line4 = new Line(new Point(this.bottomRight.getX(), this.topLeft.getY()),
                 new Point(this.bottomRight.getX(), this.bottomRight.getY()));
-        line4.draw(canvas);
+        line4.addToCanvas(canvas);
     }
 }

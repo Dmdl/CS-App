@@ -12,7 +12,7 @@ public class CanvasUtility {
      * @param y1     y coordinates of starting point
      * @param x2     x coordinates of end point
      * @param y2     y coordinates of end point
-     * @param symbol symbol to draw the line
+     * @param symbol symbol to addToCanvas the line
      * @throws CanvasException
      */
     public static void drawLine(int x1, int y1, int x2, int y2, Canvas canvas, char symbol) throws CanvasException {

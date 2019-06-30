@@ -22,7 +22,7 @@ public class Line implements Shape {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void addToCanvas(Canvas canvas) {
         if (this.start.getY() == this.end.getY()) {
             char[] row = canvas.getPixels()[start.getY()];
             for (int col = this.start.getX(); col <= this.end.getX(); col++) {
