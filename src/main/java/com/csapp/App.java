@@ -4,6 +4,7 @@ import com.csapp.commands.Command;
 import com.csapp.commands.CommandFactory;
 import com.csapp.exceptions.CanvasException;
 import com.csapp.core.Canvas;
+import com.csapp.exceptions.InvalidParameterException;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -23,7 +24,8 @@ public class App {
         while (!command.equals("Q")) {
             System.out.println("Command :");
             command = scanner.nextLine().trim();
-            String[] commands = command.split(" ");
+//            String[] commands = command.split(" ");
+            String[] commands = command.trim().split("\\s*\\s+\\s*");
             String[] parameters = Arrays.copyOfRange(commands, 1, commands.length);
             char comChar = command.charAt(0);
             try {
@@ -31,11 +33,13 @@ public class App {
                 if (Character.toLowerCase(comChar) == 'c') {
                     toExecute.execute(parameters);
                     canvas = toExecute.getCanvas();
-                } else {
+                } else if (toExecute != null) {
                     toExecute.setCanvas(canvas);
                     toExecute.execute(parameters);
+                } else {
+                    System.out.println("Invalid Command");
                 }
-            } catch (CanvasException ex) {
+            } catch (CanvasException | InvalidParameterException ex) {
                 System.out.println(ex.getMessage());
             }
         }

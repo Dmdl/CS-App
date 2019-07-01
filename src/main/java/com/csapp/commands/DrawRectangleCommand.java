@@ -4,6 +4,7 @@ import com.csapp.core.Point;
 import com.csapp.core.Shape;
 import com.csapp.core.shapes.Rectangle;
 import com.csapp.exceptions.CanvasException;
+import com.csapp.exceptions.InvalidParameterException;
 
 public class DrawRectangleCommand extends Command {
     @Override
@@ -12,7 +13,7 @@ public class DrawRectangleCommand extends Command {
     }
 
     @Override
-    public int execute(String[] parameters) throws CanvasException {
+    public int execute(String[] parameters) throws CanvasException, InvalidParameterException {
         if (!this.validate(parameters)) {
             return -1;
         }
@@ -25,10 +26,9 @@ public class DrawRectangleCommand extends Command {
     }
 
     @Override
-    public boolean validateLength(String[] parameters) {
-        if (parameters.length != Command.RECTANGLE) {
-            System.out.println("Wrong parameters to draw rectangle, please check your command");
-            return false;
+    public boolean validateLength(String[] parameters) throws InvalidParameterException{
+        if (parameters.length != COMMANDS.RECTANGLE.getParamCount()) {
+            throw new InvalidParameterException("Wrong parameters to draw a rectangle, please check your command");
         }
         return true;
     }

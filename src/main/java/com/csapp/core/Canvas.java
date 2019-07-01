@@ -35,16 +35,12 @@ public final class Canvas {
      * @return canvas
      */
     public void draw() {
-//        StringBuilder builder = new StringBuilder();
         for (char[] row : this.pixels) {
             for (char pixel : row) {
-//                builder.append(pixel == Constant.EMPTY_PIXEL ? ' ' : pixel);
                 System.out.print(pixel == Constant.EMPTY_PIXEL ? ' ' : pixel);
             }
-//            builder.append("\n");
             System.out.println();
         }
-//        return builder.toString();
     }
 
     /**

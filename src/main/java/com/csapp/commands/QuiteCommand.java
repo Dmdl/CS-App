@@ -1,15 +1,15 @@
 package com.csapp.commands;
 
-import com.csapp.exceptions.CanvasException;
+import com.csapp.exceptions.InvalidParameterException;
 
-public class QuiteCommand extends Command{
+public class QuiteCommand extends Command {
     @Override
     public String getName() {
         return "q";
     }
 
     @Override
-    public int execute(String[] parameters) throws CanvasException {
+    public int execute(String[] parameters) throws InvalidParameterException {
         if (this.validateLength(parameters)) {
             System.out.println("Exit...");
             System.exit(0);
@@ -18,10 +18,9 @@ public class QuiteCommand extends Command{
     }
 
     @Override
-    public boolean validateLength(String[] parameters) {
-        if (parameters.length != Command.QUIT){
-            System.out.println("Wrong parameters!");
-            return false;
+    public boolean validateLength(String[] parameters) throws InvalidParameterException {
+        if (parameters.length != COMMANDS.QUIT.getParamCount()) {
+            throw new InvalidParameterException("Wrong parameters!");
         }
         return true;
     }

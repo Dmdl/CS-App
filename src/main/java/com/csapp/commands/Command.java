@@ -2,13 +2,28 @@ package com.csapp.commands;
 
 import com.csapp.core.Canvas;
 import com.csapp.exceptions.CanvasException;
+import com.csapp.exceptions.InvalidParameterException;
 
 public abstract class Command {
-    protected static final int CREATE = 2;
-    protected static final int LINE = 4;
-    protected static final int RECTANGLE = 4;
-    protected static final int FILL = 3;
-    protected static final int QUIT = 0;
+
+    enum COMMANDS {
+        CREATE(2),
+        LINE(4),
+        RECTANGLE(4),
+        FILL(3),
+        QUIT(0);
+
+        private final int paramCount;
+
+        COMMANDS(int paramCount) {
+            this.paramCount = paramCount;
+        }
+
+        protected int getParamCount() {
+            return paramCount;
+        }
+    }
+
     protected Canvas canvas;
 
     public Canvas getCanvas() {
@@ -21,26 +36,24 @@ public abstract class Command {
 
     public abstract String getName();
 
-    public abstract int execute(String[] parameters) throws CanvasException;
+    public abstract int execute(String[] parameters) throws CanvasException, InvalidParameterException;
 
-    public abstract boolean validateLength(String[] parameters);
+    public abstract boolean validateLength(String[] parameters) throws InvalidParameterException;
 
-    public boolean validate(String[] parameters) {
+    public boolean validate(String[] parameters) throws InvalidParameterException, CanvasException {
         if (parameters == null) {
             return false;
         }
         if (this.canvas == null) {
-            System.out.println("You nee to Create a Canvas first");
-            return false;
+            throw new CanvasException("You nee to Create a Canvas first");
         }
         return validateLength(parameters) && validateTypes(parameters);
     }
 
-    public boolean validateTypes(String[] parameters) {
+    public boolean validateTypes(String[] parameters) throws InvalidParameterException {
         for (String param : parameters) {
             if (!isInteger(param)) {
-                System.out.println("Parameter (" + param + ") is not and integer");
-                return false;
+                throw new InvalidParameterException("Parameter (" + param + ") is not and integer");
             }
         }
         return true;
@@ -55,10 +68,9 @@ public abstract class Command {
         return true;
     }
 
-    protected static boolean validateParams(String[] parameters) {
+    protected static boolean validateParams(String[] parameters) throws InvalidParameterException {
         if (parameters == null) {
-            System.out.println("Parameters are missing");
-            return false;
+            throw new InvalidParameterException("Parameters are missing");
         }
         return true;
     }
