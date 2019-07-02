@@ -21,7 +21,7 @@ public class DrawCanvasCommand extends Command {
     }
 
     @Override
-    public boolean validateLength(String[] parameters) throws InvalidParameterException{
+    public boolean validateLength(String[] parameters) throws InvalidParameterException {
         if (parameters.length != COMMANDS.CREATE.getParamCount()) {
             throw new InvalidParameterException("Wrong parameters to create the canvas, please check your command");
         }
@@ -30,14 +30,17 @@ public class DrawCanvasCommand extends Command {
 
     @Override
     public boolean validate(String[] parameters) throws InvalidParameterException {
-        // check if it's null to avoid NullPointerException
-        if (null == parameters)
-            throw new InvalidParameterException("parameters can't be null");
-//        try {
-//            return validateParams(parameters) && validateLength(parameters) && validateTypes(parameters);
-//        } catch (NullPointerException e) {
-//            return false;
-//        }
-        return validateParams(parameters) && validateLength(parameters) && validateTypes(parameters);
+//        if (null == parameters)
+//            throw new InvalidParameterException("parameters can't be null");
+        return validateLength(parameters) && validateTypes(parameters) && validateRange(parameters);
+    }
+
+    @Override
+    public boolean validateRange(String[] parameters) throws InvalidParameterException {
+        if (Integer.parseInt(parameters[0]) <= 0)
+            throw new InvalidParameterException("Width must be greater than 0");
+        if (Integer.parseInt(parameters[1]) <= 0)
+            throw new InvalidParameterException("Height must be greater than 0");
+        return true;
     }
 }

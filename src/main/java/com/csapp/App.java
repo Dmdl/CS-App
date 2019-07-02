@@ -24,20 +24,21 @@ public class App {
         while (!command.equals("Q")) {
             System.out.println("Command :");
             command = scanner.nextLine().trim();
-//            String[] commands = command.split(" ");
             String[] commands = command.trim().split("\\s*\\s+\\s*");
             String[] parameters = Arrays.copyOfRange(commands, 1, commands.length);
             char comChar = command.charAt(0);
             try {
                 Command toExecute = commandFactory.getCommand(comChar);
+                if (null == toExecute) {
+                    System.out.println("Invalid Command");
+                    continue;
+                }
                 if (Character.toLowerCase(comChar) == 'c') {
                     toExecute.execute(parameters);
                     canvas = toExecute.getCanvas();
                 } else if (toExecute != null) {
                     toExecute.setCanvas(canvas);
                     toExecute.execute(parameters);
-                } else {
-                    System.out.println("Invalid Command");
                 }
             } catch (CanvasException | InvalidParameterException ex) {
                 System.out.println(ex.getMessage());

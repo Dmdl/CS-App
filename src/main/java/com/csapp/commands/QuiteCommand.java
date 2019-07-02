@@ -24,4 +24,9 @@ public class QuiteCommand extends Command {
         }
         return true;
     }
+
+    @Override
+    public boolean validateRange(String[] parameters) throws InvalidParameterException {
+        return true;
+    }
 }

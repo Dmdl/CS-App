@@ -45,9 +45,9 @@ public abstract class Command {
             return false;
         }
         if (this.canvas == null) {
-            throw new CanvasException("You nee to Create a Canvas first");
+            throw new CanvasException("You need to Create a Canvas first");
         }
-        return validateLength(parameters) && validateTypes(parameters);
+        return validateLength(parameters) && validateTypes(parameters) && validateRange(parameters);
     }
 
     public boolean validateTypes(String[] parameters) throws InvalidParameterException {
@@ -74,4 +74,6 @@ public abstract class Command {
         }
         return true;
     }
+
+    public abstract boolean validateRange(String[] parameters) throws InvalidParameterException;
 }
