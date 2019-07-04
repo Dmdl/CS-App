@@ -5,6 +5,8 @@ import com.csapp.core.Shape;
 import com.csapp.core.shapes.Line;
 import com.csapp.exceptions.CanvasException;
 import com.csapp.exceptions.InvalidParameterException;
+import com.csapp.util.CanvasUtility;
+import com.csapp.util.Constant;
 
 public class DrawLineCommand extends Command {
     @Override
@@ -17,8 +19,8 @@ public class DrawLineCommand extends Command {
         if (!this.validate(parameters)) {
             return -1;
         }
-        Point p1 = new Point(Integer.parseInt(parameters[0]), Integer.parseInt(parameters[1]));
-        Point p2 = new Point(Integer.parseInt(parameters[2]), Integer.parseInt(parameters[3]));
+        Point p1 = CanvasUtility.createPoint(parameters[0], parameters[1]);
+        Point p2 = CanvasUtility.createPoint(parameters[2], parameters[3]);
         Shape line = new Line(p1, p2);
         line.addToCanvas(this.canvas);
         canvas.draw();
@@ -28,7 +30,7 @@ public class DrawLineCommand extends Command {
     @Override
     public boolean validateLength(String[] parameters) throws InvalidParameterException {
         if (parameters.length != COMMANDS.LINE.getParamCount()) {
-            throw new InvalidParameterException("Wrong parameters to draw a line, please check your command");
+            throw new InvalidParameterException(String.format(Constant.WRONG_PARAMS, "line"));
         }
         return true;
     }
@@ -40,7 +42,7 @@ public class DrawLineCommand extends Command {
         int x2 = Integer.parseInt(parameters[2]);
         int y2 = Integer.parseInt(parameters[3]);
         if (x1 < 0 || x2 < 0 || y1 < 0 || y2 < 0)
-            throw new InvalidParameterException("Parameters can't be less than 0");
+            throw new InvalidParameterException("Parameters can't be negative");
         if (x2 < x1 || y2 < y1)
             throw new InvalidParameterException("Parameters must be x2>x1 and y2>y1");
         if (x2 > this.canvas.getWidth() || y2 > this.canvas.getHeight())

@@ -1,6 +1,7 @@
 package com.csapp.commands;
 
 import com.csapp.exceptions.InvalidParameterException;
+import com.csapp.exceptions.QuiteDrawingException;
 
 public class QuiteCommand extends Command {
     @Override
@@ -11,8 +12,7 @@ public class QuiteCommand extends Command {
     @Override
     public int execute(String[] parameters) throws InvalidParameterException {
         if (this.validateLength(parameters)) {
-            System.out.println("Exit...");
-            System.exit(0);
+            throw new QuiteDrawingException("Exiting");
         }
         return 0;
     }
@@ -26,7 +26,7 @@ public class QuiteCommand extends Command {
     }
 
     @Override
-    public boolean validateRange(String[] parameters) throws InvalidParameterException {
+    public boolean validateRange(String[] parameters) {
         return true;
     }
 }
