@@ -15,28 +15,24 @@ public class DrawRectangleCommand extends Command {
     }
 
     @Override
-    public int execute(String[] parameters) throws CanvasException, InvalidParameterException {
-        if (!this.validate(parameters)) {
-            throw new InvalidParameterException(Constant.INVALID_PARAMS);
-        }
+    public void execute(String[] parameters) throws CanvasException, InvalidParameterException {
+        this.validate(parameters);
         Point p1 = CanvasUtility.createPoint(parameters[0], parameters[1]);
         Point p2 = CanvasUtility.createPoint(parameters[2], parameters[3]);
         Shape rectangle = new Rectangle(p1, p2);
         rectangle.addToCanvas(this.canvas);
         canvas.draw();
-        return 0;
     }
 
     @Override
-    public boolean validateLength(String[] parameters) throws InvalidParameterException {
+    public void validateLength(String[] parameters) throws InvalidParameterException {
         if (parameters.length != COMMANDS.RECTANGLE.getParamCount()) {
             throw new InvalidParameterException(String.format(Constant.WRONG_PARAMS, "rectangle"));
         }
-        return true;
     }
 
     @Override
-    public boolean validateRange(String[] parameters) throws InvalidParameterException {
+    public void validateRange(String[] parameters) throws InvalidParameterException {
         int x1 = Integer.parseInt(parameters[0]);
         int y1 = Integer.parseInt(parameters[1]);
         int x2 = Integer.parseInt(parameters[2]);
@@ -47,6 +43,5 @@ public class DrawRectangleCommand extends Command {
             throw new InvalidParameterException("Invalid parameters to draw a rectangle");
         if (x2 > this.canvas.getWidth() || y2 > this.canvas.getHeight())
             throw new InvalidParameterException("Draw within the canvas");
-        return true;
     }
 }

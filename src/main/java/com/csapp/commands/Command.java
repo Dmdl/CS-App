@@ -3,6 +3,7 @@ package com.csapp.commands;
 import com.csapp.core.Canvas;
 import com.csapp.exceptions.CanvasException;
 import com.csapp.exceptions.InvalidParameterException;
+import com.csapp.util.Constant;
 
 public abstract class Command {
 
@@ -36,27 +37,28 @@ public abstract class Command {
 
     public abstract String getName();
 
-    public abstract int execute(String[] parameters) throws CanvasException, InvalidParameterException;
+    public abstract void execute(String[] parameters) throws CanvasException, InvalidParameterException;
 
-    public abstract boolean validateLength(String[] parameters) throws InvalidParameterException;
+    public abstract void validateLength(String[] parameters) throws InvalidParameterException;
 
-    public boolean validate(String[] parameters) throws InvalidParameterException, CanvasException {
+    public void validate(String[] parameters) throws InvalidParameterException, CanvasException {
         if (parameters == null) {
-            return false;
+            throw new InvalidParameterException(Constant.MISSING_PARAMS);
         }
         if (this.canvas == null) {
             throw new CanvasException("You need to Create a Canvas first");
         }
-        return validateLength(parameters) && validateTypes(parameters) && validateRange(parameters);
+        validateTypes(parameters);
+        validateLength(parameters);
+        validateRange(parameters);
     }
 
-    public boolean validateTypes(String[] parameters) throws InvalidParameterException {
+    public void validateTypes(String[] parameters) throws InvalidParameterException {
         for (String param : parameters) {
             if (!isInteger(param)) {
                 throw new InvalidParameterException("Parameter (" + param + ") is not and integer");
             }
         }
-        return true;
     }
 
     protected static boolean isInteger(String s) {
@@ -68,12 +70,11 @@ public abstract class Command {
         return true;
     }
 
-    protected static boolean validateParams(String[] parameters) throws InvalidParameterException {
+    protected static void validateParams(String[] parameters) throws InvalidParameterException {
         if (parameters == null) {
-            throw new InvalidParameterException("Parameters are missing");
+            throw new InvalidParameterException(Constant.MISSING_PARAMS);
         }
-        return true;
     }
 
-    public abstract boolean validateRange(String[] parameters) throws InvalidParameterException;
+    public abstract void validateRange(String[] parameters) throws InvalidParameterException;
 }

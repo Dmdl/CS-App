@@ -10,23 +10,18 @@ public class QuiteCommand extends Command {
     }
 
     @Override
-    public int execute(String[] parameters) throws InvalidParameterException {
-        if (this.validateLength(parameters)) {
-            throw new QuiteDrawingException("Exiting");
-        }
-        return 0;
+    public void execute(String[] parameters) {
+        throw new QuiteDrawingException("Exiting ...");
     }
 
     @Override
-    public boolean validateLength(String[] parameters) throws InvalidParameterException {
+    public void validateLength(String[] parameters) throws InvalidParameterException {
         if (parameters.length != COMMANDS.QUIT.getParamCount()) {
             throw new InvalidParameterException("Wrong parameters!");
         }
-        return true;
     }
 
     @Override
-    public boolean validateRange(String[] parameters) {
-        return true;
+    public void validateRange(String[] parameters) {
     }
 }
